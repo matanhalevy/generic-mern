@@ -1,20 +1,27 @@
 {
-  "name": "webapp",
+  "name": "generic-mern",
   "version": "1.0.0",
   "description": "MERN stack web application",
   "main": "webapp.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/matanhalevy/generic-mern.git"
+  },
   "author": "Matan Halevy",
   "license": "ISC",
   "dependencies": {
+    "babel-preset-es2015": "^6.18.0",
     "babel-preset-react": "^6.16.0",
     "express": "^4.14.0",
     "react": "^15.4.1",
     "react-dom": "^15.4.1"
   },
   "devDependencies": {
-    "babel-cli": "^6.18.0"
+    "babel-cli": "^6.18.0",
+    "babel-core": "^6.21.0",
+    "babel-preset-env": "^1.1.4"
   }
 }

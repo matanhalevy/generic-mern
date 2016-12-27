@@ -1,8 +1,41 @@
-import React from 'react'
-import ReactDOM  from 'react-dom'
+var BugFilter = React.createClass({
+  render: function() {
+    return (
+      <div>section is meant for a filter</div>
+    )
+  }
+})
+
+var BugTable =  React.createClass({
+  render: function() {
+    return (
+      <div>A table to list all the bugs</div>
+    )
+  }
+})
+
+var BugAdd = React.createClass({
+  render: function() {
+    return (
+      <div>a form to add a new bug</div>
+    )
+  }
+})
+
+var BugList = React.createClass({
+  render: function() {
+    return (
+      <div>
+        <BugFilter />
+        <BugTable />
+        <BugAdd />
+      </div>
+    )
+  }
+});
+
 
 ReactDOM.render(
-  //this doesnt render cause of babel version 6.0+
-  <h1>Hello, world!</h1>,
-  document.getElementById('example')
+  <BugList />,
+  document.getElementById('main')
 );
