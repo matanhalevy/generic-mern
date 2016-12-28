@@ -1,8 +1,9 @@
 var BugRow = React.createClass({
   render: function() {
+    console.log('rendering BugRow', this.props.bug);
     return (
       <tr>
-        <td>{this.props.id}</td>
+        <td>{this.props.bug.id}</td>
         <td>{this.props.bug.status}</td>
         <td>{this.props.bug.priority}</td>
         <td>{this.props.bug.owner}</td>
@@ -14,6 +15,7 @@ var BugRow = React.createClass({
 
 var BugFilter = React.createClass({
   render: function() {
+    console.log('rendering BugFilter');
     return (
       <div>section is meant for a filter</div>
     )
@@ -21,7 +23,10 @@ var BugFilter = React.createClass({
 })
 
 var BugTable =  React.createClass({
+
+
   render: function() {
+    console.log('rendering bug table, num items: ', this.props.bugs.length);
     var bugRows = this.props.bugs.map(function(bug) {
       return <BugRow key={bug.id} bug={bug} />
     })
@@ -45,27 +50,58 @@ var BugTable =  React.createClass({
 })
 
 var BugAdd = React.createClass({
+  handleSubmit: function(e) {
+    e.preventDefault();
+    var form = document.forms.bugAdd;
+    this.props.addBug({owner:form.owner.value, title: form.title.value, status: 'new', priority:'P1'});
+    form.owner.value = '';
+    form.title.value = '';
+  },
+
   render: function() {
+    console.log('rendering BugAdd');
     return (
-      <div>a form to add a new bug</div>
+      <div>
+        <form name='bugAdd'>
+          <input type='text' name='owner' placeholder='Owner' />
+          <input type='text' name='title' placeholder='Title' />
+          <button onClick={this.handleSubmit}>Add Bug</button>
+        </form>
+      </div>
     )
   }
 })
 
 var BugList = React.createClass({
+  getInitialState: function() {
+    return {bugs: bugData}
+  },
+
+
+  addBug: function(bug) {
+    console.log('Adding bug: ', bug);
+    //advised not to modify state (its immutable) so make a copy.
+    var bugsModified = this.state.bugs.slice();
+    bug.id = this.state.bugs.length + 1;
+    bugsModified.push(bug);
+    this.setState({bugs: bugsModified});
+  },
+
   render: function() {
+    console.log('rendering BugList, num items: ', this.state.bugs.length);
     return (
       <div>
         <h1> Bug Tracker </h1>
         <BugFilter />
         <hr />
-        <BugTable bugs={bugData}/>
+        <BugTable bugs={this.state.bugs}/>
         <hr />
-        <BugAdd />
+        <BugAdd addBug={this.addBug}/>
       </div>
     )
   }
 });
+
 
 
 var bugData = [
